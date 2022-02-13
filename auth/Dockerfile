@@ -1,5 +1,5 @@
 # Installing base node alpine image
-FROM node:alpine
+FROM amd64/node:alpine
 
 WORKDIR /app
 
