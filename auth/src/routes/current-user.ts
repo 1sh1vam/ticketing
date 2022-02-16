@@ -1,18 +1,8 @@
-import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
+import express from 'express';
 
 const router = express.Router();
 
-router.get('/api/users/currentuser',[
-    body('email')
-        .isEmail()
-        .withMessage('Email is not valid'),
-    body('password')
-        .trim()
-        .isLength({ min: 4, max: 20 })
-        .withMessage('Password length must be between 4 and 20 charecters')
-], (req: Request, res: Response) => {
-    const { email, password } = req.body();
+router.get('/api/users/currentuser', (req, res) => {
     res.send("Hi!, there.")
 });
 
