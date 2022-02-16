@@ -17,9 +17,10 @@ router.post('/api/users/signup', [
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
-        return res.status(400).send(errors.array());
+        throw new Error('Email Id or Password is invalid');
     }
-    console.log('user is getting created');
+
+    throw new Error('Database connection failed');
 
     res.send({});
 });
