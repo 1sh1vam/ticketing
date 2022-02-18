@@ -16,8 +16,12 @@ app.use(signupRouter);
 app.use(signoutRouter)
 
 // Throwing an error if a request of any type (get, post etc.) is made to invalid route path
-app.all('*', () => {
-    throw new NotFoundError()
+app.all('*', async (req, res, next) => {
+    // when callback function is async it will throw unusual error like 502 bad gateway
+    // throw new NotFoundError()
+
+    // to handle this we can use next function by express
+    next(new NotFoundError());
 })
 
 app.use(errorHandler);
