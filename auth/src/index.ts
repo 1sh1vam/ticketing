@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middlewares/error-handler';
 import { currentUserRouter } from "./routes/current-user";
@@ -21,7 +22,10 @@ app.all('*', async (req, res, next) => {
     // throw new NotFoundError()
 
     // to handle this we can use next function by express
-    next(new NotFoundError());
+    // next(new NotFoundError());
+
+    // another way we can handle this using the express-async-errors package by just importing it
+    throw new NotFoundError();
 })
 
 app.use(errorHandler);
