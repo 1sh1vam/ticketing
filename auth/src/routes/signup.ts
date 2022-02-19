@@ -26,7 +26,7 @@ router.post('/api/users/signup', [
 
     if (existingUser) {
         console.log('Email in use');
-        res.send({});
+        return res.send({});
     }
 
     const user = User.build({ email, password });
