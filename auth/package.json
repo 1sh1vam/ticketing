@@ -21,6 +21,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/cookie-session": "^2.0.44"
+    "@types/cookie-session": "^2.0.44",
+    "@types/jsonwebtoken": "^8.5.8"
   }
 }
