@@ -38,8 +38,10 @@ router.post('/api/users/signup', [
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email,
-    }, 'asdf'); // asdf is a secret key which is used to generate the json token. This need to
+    }, process.env.JWT_KEY!); // asdf is a secret key which is used to generate the json token. This need to
     // stored very securely. However for dev purposes I have used this simple string here.
+    // The exclamation mark after the process.env.JWT_KEY is to tell typescript that we are
+    // sure this key exists typescript doesn't need to worry about that.
 
     req.session = {
         jwt: userJwt
