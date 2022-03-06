@@ -13,9 +13,12 @@ const app = express();
 app.set('trust proxy', true);
 
 app.use(express.json());
+
+// Checking the node environment before setting up the secure call.
+// As while testing we are not making an https call so we will set secure to false
 app.use(cookieSession({
     signed: false,
-    secure: true, // This option is to tell that set cookie only if connection is a secure connection.
+    secure: process.env.NODE_ENV !== 'test', // This option is to tell that set cookie only if connection is a secure connection.
 }))
 
 app.use(currentUserRouter);

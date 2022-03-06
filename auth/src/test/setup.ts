@@ -1,10 +1,11 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
-let mongod: any;
+let mongo: any;
 beforeAll(async () => {
-    mongod = new MongoMemoryServer();
-    const mongoUri = await mongod.getUri();
+    process.env.JWT_KEY="passwd"
+    mongo = await MongoMemoryServer.create();
+    const mongoUri = mongo.getUri();
     await mongoose.connect(mongoUri)
 });
 
@@ -17,6 +18,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-    await mongod.stop();
+    await mongo.stop();
     await mongoose.connection.close();
 })
