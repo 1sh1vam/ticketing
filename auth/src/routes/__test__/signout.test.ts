@@ -9,15 +9,7 @@ it('returns a 401 if trying to signout', async () => {
 });
 
 it('clears the cookie after signing out', async () => {
-    const authResponse = await request(app)
-        .post('/api/users/signup')
-        .send({
-            email: 'test@test.com',
-            password: 'test@123'
-        })
-        .expect(201);
-
-    const cookie = authResponse.get('Set-Cookie');
+    const cookie = await global.signin();
 
     const response = await request(app)
         .post('/api/users/signout')

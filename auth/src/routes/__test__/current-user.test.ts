@@ -9,15 +9,7 @@ it('Returns 401 if trying to get current user without login',async () => {
 });
 
 it('responds with details about the current user', async () => {
-    const authResponse = await request(app)
-        .post('/api/users/signup')
-        .send({
-            email: 'test@test.com',
-            password: 'test@123',
-        })
-        .expect(201);
-
-    const cookie = authResponse.get('Set-Cookie');
+    const cookie = await global.signin();
 
     const response = await request(app)
         .get('/api/users/currentUser')
