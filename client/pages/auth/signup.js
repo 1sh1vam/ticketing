@@ -8,13 +8,13 @@ export default () => {
         <div className="w-full flex font-md flex-col items-center space-y-6">
           <div className="w-full">
             <p className="text-left">Email address</p>
-            <input className="rounded-md px-2 w-full mt-1 border border-gray-300 h-10 outline-none" />
+            <input className="rounded-md px-3 w-full mt-1 border border-gray-300 h-10 outline-none" />
           </div>
           <div className="w-full">
             <p className="text-left">Password</p>
             <input
               type="password"
-              className="rounded-md px-2 w-full mt-1 border border-gray-300 h-10 outline-none"
+              className="rounded-md px-3 w-full mt-1 border border-gray-300 h-10 outline-none"
             />
           </div>
         </div>
