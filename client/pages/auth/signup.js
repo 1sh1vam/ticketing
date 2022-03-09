@@ -1,10 +1,10 @@
 export default () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center space-y-8 justify-center">
-      <h2 className="text-3xl font-extrabold text-center text-gray-900">
-        Sign up
-      </h2>
       <div className="max-w-md w-full bg-white font-sm text-sm text-gray-800 shadow-sm px-10 py-8 rounded-lg">
+        <h2 className="text-3xl mb-8 font-extrabold text-center text-gray-900">
+            Sign up
+        </h2>
         <div className="w-full flex font-md flex-col items-center space-y-6">
           <div className="w-full">
             <p className="text-left">Email address</p>
