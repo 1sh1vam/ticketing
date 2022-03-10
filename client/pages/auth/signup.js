@@ -8,6 +8,7 @@ export default () => {
   const [errors, setErrors] = useState(null)
 
   const handleSubmit = async (e) => {
+    setErrors(null);
     try {
       const response = await axios.post('/api/users/signup', {
         email,
