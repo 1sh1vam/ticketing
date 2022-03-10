@@ -1,26 +1,22 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { errorExists, mapErrosArrayToObject } from './utils/find-error';
+import useRequest from '../../hooks/use-request';
 
 export default () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState(null)
+  const { errors, sendRequest } = useRequest({
+    url: '/api/users/signup',
+    method: 'post',
+    body: {
+      email,
+      password,
+    }
+  })
 
   const handleSubmit = async (e) => {
-    setErrors(null);
-    try {
-      const response = await axios.post('/api/users/signup', {
-        email,
-        password,
-      });
-      console.log('response', response.data);
-    } catch (err) {
-      console.log('error', err.response);
-      const errorsObject = mapErrosArrayToObject(err.response.data.errors);
-      console.log('eeror d', errorsObject);
-      setErrors(errorsObject);
-    }
+    sendRequest();
   }
 
   return (
