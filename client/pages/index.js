@@ -1,12 +1,16 @@
-const LandingPage = ({ color }) => {
-    console.log('inside the component', color);
+import axios from "axios";
+
+const LandingPage = ({ currentUser }) => {
+    console.log('inside the component', currentUser);
     return <h1>Landing page...</h1>
 }
 
-LandingPage.getInitialProps = () => {
-    console.log('inside the server');
+LandingPage.getInitialProps = async () => {
+    // We are not using the useRequest hook here as hooks can only be used inside a
+    // component and this is not a component.
+    const response = await axios.get('/api/users/currentUser');
 
-    return { color: 'red' }
+    return response.data;
 }
 
 export default LandingPage;
