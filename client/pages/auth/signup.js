@@ -6,7 +6,7 @@ import useRequest from '../../hooks/use-request';
 export default () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { errors, sendRequest } = useRequest({
+  const { errors, loading, sendRequest } = useRequest({
     url: '/api/users/signup',
     method: 'post',
     body: {
@@ -45,9 +45,10 @@ export default () => {
           </div>
         </div>
         <button
-          className="w-full mt-10 rounded-lg py-2 text-white text-center bg-indigo-600"
+          className="w-full mt-10 flex items-center justify-center rounded-lg py-2 text-white text-center bg-indigo-600"
           onClick={handleSubmit}
         >
+          {loading && <div className="w-4 h-4 border-2 mr-2 border-t-white border-slate-300 rounded-full animate-spin"></div>}
           Sign up
         </button>
       </div>
