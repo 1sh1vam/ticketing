@@ -10,12 +10,32 @@ const LandingPage = ({ currentUser }) => {
     return <h1>Landing page...</h1>
 }
 
-// LandingPage.getInitialProps = async () => {
+LandingPage.getInitialProps = async () => {
     // We are not using the useRequest hook here as hooks can only be used inside a
     // component and this is not a component.
-    // const response = await axios.get('/api/users/currentUser');
 
-    // return response.data;
-// }
+    // getInitialProps can also be called from the client when we are routing from the
+    // application itself.
+
+    if (typeof window === 'undefined') {
+        // If window is undefined then we are inside the server not in the client
+
+        // "ingress-nginx-controller" is the service name of ingress service inside the ingress-nginx namespace.
+        // "ingress-nginx" is the namespace
+        const { data } = await axios.get('http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser', {
+            headers: {
+                Host: 'ticketing.dev',
+                // Sending the host otherwise ingress-nginx won't know to which host it should route to.
+            }
+        });
+        return data
+
+    } else {
+        const { data } = await axios.get('/api/users/currentUser');
+        return data;
+    }
+
+    return {}
+}
 
 export default LandingPage;
