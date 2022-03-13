@@ -14,14 +14,14 @@ const AppComponent =  ({ Component, pageProps }) => {
     )
 }
 
-AppComponent.getInitialProps = (appContext) => {
-    console.log('App initial props', Object.keys(appContext))
-    // The context inside the custom app component is different from the context inside other
-    // components. Here we have an extra property Component. appContext.ctx is the context that
-    // is having the req object.
-    const client = buildClient(appContext.ctx);
-    const { data } = await client.get('/api/users/currentUser');
-    return data
-}
+// AppComponent.getInitialProps = async (appContext) => {
+//     console.log('App initial props', Object.keys(appContext))
+//     // The context inside the custom app component is different from the context inside other
+//     // components. Here we have an extra property Component. appContext.ctx is the context that
+//     // is having the req object.
+//     const client = buildClient(appContext.ctx);
+//     const { data } = await client.get('/api/users/currentUser');
+//     return data
+// }
 
 export default AppComponent;
