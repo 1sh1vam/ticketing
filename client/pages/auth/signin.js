@@ -45,6 +45,11 @@ export default () => {
             {errors?.password && <p className="text-xs text-red-700">{errors.password}</p>}
           </div>
         </div>
+        {errors?.generic && (
+          <ul className="bg-red-400 mt-2 list-disc text-white rounded-md pl-8 pr-5 py-3">
+            {errors.generic}
+          </ul>
+        )}
         <button
           className="w-full mt-10 flex items-center justify-center rounded-lg py-2 text-white text-center bg-indigo-600"
           onClick={handleSubmit}
