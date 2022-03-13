@@ -14,14 +14,18 @@ const AppComponent =  ({ Component, pageProps }) => {
     )
 }
 
-// AppComponent.getInitialProps = async (appContext) => {
-//     console.log('App initial props', Object.keys(appContext))
-//     // The context inside the custom app component is different from the context inside other
-//     // components. Here we have an extra property Component. appContext.ctx is the context that
-//     // is having the req object.
-//     const client = buildClient(appContext.ctx);
-//     const { data } = await client.get('/api/users/currentUser');
-//     return data
-// }
+AppComponent.getInitialProps = async (appContext) => {
+    console.log('app context', Object.keys(appContext))
+    const client = buildClient(appContext.ctx);
+    const { data } = await client.get('/api/users/currentUser');
+
+    // As soon as we start using the getInititalProps inside the custom app component
+    // we can see that getInitialProps in other components never gets triggered.
+    // To handle multiple getInitialProps we have to call components getInitialProps
+    // here like below.
+    const pageProps = await appContext.Component.getInitialProps(appContext.ctx)
+    console.log('page props', pageProps);
+    return data
+}
 
 export default AppComponent;
