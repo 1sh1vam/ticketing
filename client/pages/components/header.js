@@ -15,7 +15,7 @@ export default ({ currentUser }) => {
     return (
         <div className="box-border w-full flex mb-5 justify-between items-center">
             <h3 className="text-gray text-xl border px-2 py-1 rounded-md">YTick</h3>
-            <div className="flex items-center">
+            <div className="flex items-center px-5">
                 {links}
             </div>
         </div>
