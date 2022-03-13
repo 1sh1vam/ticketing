@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useRequest from '../../hooks/use-request';
@@ -51,6 +52,7 @@ export default () => {
             )}
           </div>
         </div>
+        <p className="text-left mt-2 self-start">New user? <Link href="/auth/signup"><a className="text-blue-500 hover:underline">signup</a></Link></p>
         {errors?.generic && (
           <ul className="bg-red-400 mt-2 list-disc text-white rounded-md pl-8 pr-5 py-3">
             {errors.generic}
