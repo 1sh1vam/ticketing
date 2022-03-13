@@ -9,6 +9,7 @@ export default () => {
 
     const { errors, loading, sendRequest } = useRequest({
         url: '/api/users/signin',
+        method: 'post',
         body: {
             email,
             password,
