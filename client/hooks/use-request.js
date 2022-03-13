@@ -17,6 +17,11 @@ export default ({ url, method, body, onSuccess }) => {
       return response;
     } catch (err) {
       const errorsObject = mapErrosArrayToObject(err.response.data.errors);
+      if (errorsObject.generic.length > 0) {
+        errorsObject.generic = errorsObject.generic.map((msg, idx) => <li key={`${msg}-${idx}`} className="text-inherit">{msg}</li>)
+      } else {
+        delete errorsObject.generic;
+      }
       setErrors(errorsObject);
     }
     setLoading(false);
