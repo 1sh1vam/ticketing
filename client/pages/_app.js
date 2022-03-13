@@ -1,12 +1,14 @@
+import { useRouter } from 'next/router';
 import '../styles/globals.css';
 import buildClient from './api/build-client';
 import Header from './components/header';
+import { NON_HEADER_PAGES } from './constants/page-config';
 
 const AppComponent =  ({ Component, pageProps, currentUser }) => {
-    console.log('component', Component);
+    const router = useRouter()
     return (
         <div>
-            <Header currentUser={currentUser} />
+            {!NON_HEADER_PAGES.includes(router.pathname) && <Header currentUser={currentUser} />}
             <Component {...pageProps} />
         </div>
     )
