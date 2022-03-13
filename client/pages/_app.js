@@ -1,14 +1,12 @@
 import '../styles/globals.css';
 import buildClient from './api/build-client';
+import Header from './components/header';
 
 const AppComponent =  ({ Component, pageProps, currentUser }) => {
+    console.log('component', Component);
     return (
         <div>
-            {/* We have a problem here as we need to change header content based on the
-            idea if the user is logged in or not. But we are making the currentUser get call
-            inside the landinPAge component. We will user AppComponent to get the users here and
-            pass it through the props */}
-            <h1>Header COmponen {currentUser.email}</h1>
+            <Header currentUser={currentUser} />
             <Component {...pageProps} />
         </div>
     )
