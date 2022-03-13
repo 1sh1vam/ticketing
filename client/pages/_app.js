@@ -16,7 +16,7 @@ const AppComponent =  ({ Component, pageProps, currentUser }) => {
 
 AppComponent.getInitialProps = async (appContext) => {
     const client = buildClient(appContext.ctx);
-    const response = await client.get('/api/users/currentUser').catch((err) => console.log(err));
+    const response = await client.get('/api/users/currentUser').catch((err) => console.log(err.message));
     const data = response?.data || {};
     // As soon as we start using the getInititalProps inside the custom app component
     // we can see that getInitialProps in other components never gets triggered.
