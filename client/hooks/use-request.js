@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { mapErrosArrayToObject } from '../pages/auth/utils/find-error';
+import { mapErrosArrayToObject } from '../pages/utils/find-error';
 
 export default ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
