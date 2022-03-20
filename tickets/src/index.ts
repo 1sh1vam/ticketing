@@ -7,7 +7,7 @@ const start = async () => {
     }
 
     try {
-        await mongoose.connect('mongodb://auth-srv:27017/auth')
+        await mongoose.connect('mongodb://tickets-mongo-srv:27017/tickets')
     } catch(e) {
         console.log('error connecting to mongo', e);
     }
