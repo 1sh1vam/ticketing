@@ -1,4 +1,5 @@
-FROM amd64:node/alpine
+FROM amd64/node:alpine
+
 
 WORKDIR /app
 
