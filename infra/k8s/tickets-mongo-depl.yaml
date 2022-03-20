@@ -15,7 +15,7 @@ spec:
       containers:
         - name: tickets-mongo
           image: mongo
-...
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -24,7 +24,7 @@ spec:
   selector:
     app: tickets-mongo
   ports:
-    - name: tickets-mongo
+    - name: db
       protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 27017
+      targetPort: 27017
