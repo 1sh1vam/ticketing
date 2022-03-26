@@ -1,6 +1,7 @@
 import { requireAuth, validateRequest } from '@simtix/ticketing-common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
 
 const router = express.Router();
 
@@ -13,7 +14,12 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    return res.sendStatus(405);
+    const { title, price } = req.body;
+
+    const ticket = Ticket.build({ title, price, userId: req.currentUser!.id });
+    await ticket.save();
+
+    res.status(201).send(ticket);
   }
 );
 
