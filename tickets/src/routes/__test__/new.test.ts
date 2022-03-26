@@ -45,7 +45,17 @@ it('returns an error if invalid title is provided', async () => {
 });
 
 it('returns an error if invalid price is provided', async () => {
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', global.signin())
+        .send({ title: 'First tic', price: 10})
+        .expect(401);
 
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', global.signin())
+        .send({ title: 'First tic', price: -10 })
+        .expect(401);
 });
 
 it('creates a ticket with valid inputs', async () => {
