@@ -17,18 +17,31 @@ it('can only be accessed if user is signed in', async () => {
 });
 
 it('returns a status code other than 401 if user is signed in', async () => {
-    const cookie = global.signin();
-    console.log('cookie', cookie);
     const response = await request(app)
         .post('/api/tickets')
-        .set('Cookie', cookie)
+        .set('Cookie', global.signin())
         .send({});
 
     expect(response.status).not.toEqual(401);
 });
 
 it('returns an error if invalid title is provided', async () => {
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', global.signin())
+        .send({
+            title: '',
+            price: 10
+        })
+        .expect(400);
 
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', global.signin())
+        .send({
+            price: 10
+        })
+        .expect(400);
 });
 
 it('returns an error if invalid price is provided', async () => {
