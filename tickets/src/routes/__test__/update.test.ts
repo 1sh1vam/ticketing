@@ -15,7 +15,14 @@ it('returns a 404 error if ticket not found', async () => {
 });
 
 it('returns a 401 error if not logged in', async () => {
-
+    const id = new mongoose.Types.ObjectId().toHexString();
+    await request(app)
+        .put(`/api/tickets/${id}`)
+        .send({
+            title: 'Random',
+            price: 23
+        })
+        .expect(401);
 });
 
 it('returns a 400 bad request error if sent invalid parameters', async () => {
