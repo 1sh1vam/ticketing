@@ -25,7 +25,7 @@ it('returns a 401 error if not logged in', async () => {
         .expect(401);
 });
 
-it('returns a 400 bad request error if sent invalid parameters', async () => {
+it('returns a 401 if trying to modify a ticket which is not owned by the user', async () => {
     const response = await request(app)
         .post('/api/tickets')
         .set('Cookie', global.signin())
@@ -51,8 +51,33 @@ it('returns a 400 bad request error if sent invalid parameters', async () => {
     expect(newResponse.body.price).toEqual(response.body.price);
 });
 
-it('returns a 401 if trying to modify a ticket which is not owned by the user', async () => {
+it('returns a 400 bad request error if sent invalid parameters', async () => {
+    const cookie = global.signin();
+    const response = await request(app)
+        .post('/api/tickets')
+        .set('Cookie', cookie)
+        .send({
+            title: 'Random',
+            price: 234,
+        });
 
+    await request(app)
+        .put(`/api/tickets/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({
+            title: '',
+            price: 10
+        })
+        .expect(400);
+
+    await request(app)
+        .put(`/api/tickets/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({
+            title: 'Updated',
+            price: -10
+        })
+        .expect(400);
 });
 
 it('updates the ticket data', async () => {
