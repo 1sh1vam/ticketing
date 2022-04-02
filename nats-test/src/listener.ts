@@ -6,4 +6,10 @@ const stan = nats.connect('ticketing', 'listener', {
 
 stan.on('connect', () => {
     console.log('listener connected to the NATS');
+
+    const subscription = stan.subscribe('ticket:created');
+
+    subscription.on('message', () => {
+        console.log('Message received');
+    });
 });
