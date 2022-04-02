@@ -15,11 +15,20 @@ stan.on('connect', () => {
         process.exit();
     });
 
-    const options = stan.subscriptionOptions().setManualAckMode(true);
+    const options = stan
+        .subscriptionOptions()
+        .setManualAckMode(true)
+        .setDeliverAllAvailable()
+        .setDurableName('accounting-service');
 
+    // setDurableOptions will not work if there is no queue group in nats.
+    // The reason why it's not going to work is when we restart every time nats
+    // assumes as this service is down it' not going to be up again hence removes
+    // the durable event history from nat. When we use queue group then nats assumes
+    // that this service might come back after some time and doesn't remove the event history for that service
     const subscription = stan.subscribe(
       'ticket:created',
-      'orders-service-queue-group',
+      'queue-group-name',
       options
     );
 
