@@ -15,6 +15,7 @@ stan.on('connect', async () => {
         id: 'rn132',
         title: 'CSK vs PBKXI',
         price: 3500,
+        userId: '64cfdtd5f',
     });
 
     // const data = JSON.stringify({
