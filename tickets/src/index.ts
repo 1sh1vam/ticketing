@@ -1,5 +1,6 @@
 import { app } from "./app";
 import mongoose from 'mongoose';
+import { natsWrapper } from "./nats-wrapper";
 
 const start = async () => {
     if (!process.env.JWT_KEY) {
@@ -10,7 +11,8 @@ const start = async () => {
     }
 
     try {
-        await mongoose.connect(process.env.MONGO_URI)
+        await natsWrapper.connect('ticketing', 'jsdf4', 'http://nats-srv:4222');
+        await mongoose.connect(process.env.MONGO_URI);
     } catch(e) {
         console.log('error connecting to mongo', e);
     }
