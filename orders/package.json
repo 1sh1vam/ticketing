@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@simtix/ticketing-common": "^1.0.23",
+    "cookie-session": "^2.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.2.10",
+    "node-nats-streaming": "^0.3.2",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  }
+}
