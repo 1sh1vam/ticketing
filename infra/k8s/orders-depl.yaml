@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: orders
   template:
-    metadta:
+    metadata:
       labels:
         app: orders
     spec:
@@ -30,7 +30,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  value: JWT_KEY
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
