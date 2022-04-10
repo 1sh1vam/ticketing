@@ -58,4 +58,20 @@ it('returns bad request 400 when ticket is already reserved', async () => {
             ticketId: ticket.id,
         })
         .expect(400);
-})
+});
+
+it('successfully reserves a ticket', async () => {
+    const ticket = Ticket.build({
+        title: 'KKR vs DC',
+        price: 234
+    });
+    await ticket.save();
+
+    await request(app)
+        .post('/api/orders')
+        .set('Cookie', global.signin())
+        .send({
+            ticketId: ticket.id,
+        })
+        .expect(201);
+});
