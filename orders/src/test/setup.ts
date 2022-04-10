@@ -39,5 +39,5 @@ global.signin = () => {
 
     const base64 = Buffer.from(sessionJson).toString('base64');
 
-    return [`sess=${base64}`]
+    return [`session=${base64}`]
 }
