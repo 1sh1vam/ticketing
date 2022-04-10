@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { currentUser, errorHandler, NotFoundError } from '@simtix/ticketing-common';
 import { newOrderRouter } from './routes/new';
@@ -17,7 +18,7 @@ app.use(currentUser);
 
 app.use(newOrderRouter);
 
-app.use('*', () => {
+app.all('*', async () => {
     throw new NotFoundError();
 });
 
