@@ -1,7 +1,9 @@
-import { requireAuth, validateRequest } from '@simtix/ticketing-common';
+import { BadRequestError, NotFoundError, OrderStatus, requireAuth, validateRequest } from '@simtix/ticketing-common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import mongoose from 'mongoose';
+import { Order } from '../models/order';
+import { Ticket } from '../models/ticket';
 const router = express.Router();
 
 router.post(
@@ -16,7 +18,24 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-      res.send({});
+    // 1. Find the ticket that user is trying to order in database
+    const ticket = await Ticket.findById(req.body.ticketId);
+
+    if (!ticket) throw new NotFoundError();
+
+    // 2. Make sure the ticket is not already reserved
+    const existingOrder = await Order.findOne({
+        ticket,
+        status: {
+            $in: [
+                OrderStatus.Created,
+                OrderStatus.AwaitingPayment,
+                OrderStatus.Complete
+            ]
+        }
+    });
+
+    if (existingOrder) throw new BadRequestError('Ticket is already reserved');
   }
 );
 
