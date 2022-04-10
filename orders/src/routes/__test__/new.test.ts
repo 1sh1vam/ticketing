@@ -1,5 +1,6 @@
 import { app } from "../../app";
 import request from 'supertest';
+import mongoose from "mongoose";
 
 it('returns a 401 unauthorized error if trying to create an order without being logged in', async () => {
     await request(app)
@@ -9,7 +10,6 @@ it('returns a 401 unauthorized error if trying to create an order without being 
 });
 
 it('returns bad request error if user sends create order with invalid ticket id', async () =>{
-    console.log(global.signin());
     await request(app)
         .post('/api/orders')
         .set('Cookie', global.signin())
@@ -21,4 +21,14 @@ it('returns bad request error if user sends create order with invalid ticket id'
         .set('Cookie', global.signin())
         .send({ ticketId: '712364' })
         .expect(400);
+});
+
+it('returns not found 404 error when ticket trying to order is not present', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toHexString();
+
+    await request(app)
+        .post('/api/orders')
+        .set('Cookie', global.signin())
+        .send({ ticketId })
+        .expect(404);
 });
