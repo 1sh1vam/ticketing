@@ -1,6 +1,8 @@
 import { app } from "../../app";
 import request from 'supertest';
 import mongoose from "mongoose";
+import { Ticket } from "../../models/ticket";
+import { Order, OrderStatus } from "../../models/order";
 
 it('returns a 401 unauthorized error if trying to create an order without being logged in', async () => {
     await request(app)
@@ -32,3 +34,28 @@ it('returns not found 404 error when ticket trying to order is not present', asy
         .send({ ticketId })
         .expect(404);
 });
+
+it('returns bad request 400 when ticket is already reserved', async () => {
+    const ticket = Ticket.build({
+        title: 'DC vs KKR',
+        price: 2345
+    });
+    await ticket.save();
+
+    const order = Order.build({
+        ticket,
+        userId: 'lasndasd',
+        status: OrderStatus.Created,
+        expiresAt: new Date(),
+    });
+
+    await order.save();
+
+    await request(app)
+        .post('/api/orders')
+        .set('Cookie', global.signin())
+        .send({
+            ticketId: ticket.id,
+        })
+        .expect(400);
+})
