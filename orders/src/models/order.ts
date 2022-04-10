@@ -1,5 +1,6 @@
 import { OrderStatus } from "@simtix/ticketing-common";
 import mongoose from "mongoose";
+import { TicketDoc } from "./ticket";
 
 interface OrderAttrs {
     userId: string;
@@ -50,6 +51,6 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
     return new Order(attrs);
 }
 
-const Order = mongoose.model<OrderDoc, OrderModel>('order', orderSchema);
+const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
 
 export { Order }
