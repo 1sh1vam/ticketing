@@ -6,6 +6,8 @@ import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
 const router = express.Router();
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+
 router.post(
   '/api/orders',
   requireAuth,
@@ -26,6 +28,10 @@ router.post(
     // 2. Make sure the ticket is not already reserved
     const isReserved = await ticket.isReserved();
     if (isReserved) throw new BadRequestError('Ticket is already reserved');
+
+    // 3. Calculate an expiration date for this order.
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
   }
 );
 
