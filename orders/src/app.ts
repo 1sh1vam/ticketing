@@ -5,6 +5,7 @@ import { currentUser, errorHandler, NotFoundError } from '@simtix/ticketing-comm
 import { newOrderRouter } from './routes/new';
 import { listOrdersRouter } from './routes';
 import { showOrderRouter } from './routes/show';
+import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
 app.set('trust proxy', true);
@@ -21,6 +22,7 @@ app.use(currentUser);
 app.use(newOrderRouter);
 app.use(listOrdersRouter);
 app.use(showOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();
