@@ -2,8 +2,10 @@ import { BadRequestError, NotFoundError, OrderStatus, requireAuth, validateReque
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import mongoose from 'mongoose';
+import { OrderCreatedPublisher } from '../events/order-created-publisher';
 import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
+import { natsWrapper } from '../nats-wrapper';
 const router = express.Router();
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
@@ -47,6 +49,16 @@ router.post(
     await order.save();
 
     // 5. Publish an event saying that an order was creared
+    await new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      expiresAt: order.expiresAt.toISOString(),
+      userId: order.userId,
+      ticket: {
+        id: ticket.id,
+        price: ticket.price,
+      }
+    });
 
     res.status(201).send(order);
   }
