@@ -35,3 +35,16 @@ const setup = async () => {
     // 5. Return all of these
     return { data, listener, ticket, msg };
 };
+
+it('finds the ticket, updates and saves the ticket', async () => {
+    const { listener, data, msg } = await setup();
+
+    // Call onMessage with data and msg
+    await listener.onMessage(data, msg);
+
+    // Assert to check if the ticket was updated
+    const ticket = await Ticket.findById(data.id);
+    expect(ticket).toBeDefined();
+    expect(ticket!.title).toEqual(data.title);
+    expect(ticket!.price).toEqual(data.price);
+});
