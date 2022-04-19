@@ -1,6 +1,7 @@
 import { TicketCreatedEvent } from "@simtix/ticketing-common";
 import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
+import { Ticket } from "../../../models/ticket";
 import { natsWrapper } from "../../../nats-wrapper"
 import { TicketCreatedListener } from "../ticket-created-listener"
 
@@ -26,3 +27,16 @@ const setup = async () => {
     // Return all these
     return { listener, data, msg };
 }
+
+it('creates and savea ticket',async () => {
+    const { listener, data, msg } = await setup();
+
+    // Call the onMessage with data and msg
+    await listener.onMessage(data, msg);
+
+    // make an assertio to make sure the ticket was created
+    const ticket = await Ticket.findById(data.id);
+    expect(ticket).toBeDefined();
+    expect(ticket!.title).toEqual(data.title);
+    expect(ticket!.price).toEqual(data.price);
+});
