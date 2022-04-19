@@ -40,3 +40,13 @@ it('creates and savea ticket',async () => {
     expect(ticket!.title).toEqual(data.title);
     expect(ticket!.price).toEqual(data.price);
 });
+
+it('acks the message',async () => {
+    const { data, msg, listener } = await setup();
+
+    // Call the onMessage with data nd msg
+    await listener.onMessage(data, msg);
+
+    // Make an assertion to make sure act function was called
+    expect(msg.ack).toHaveBeenCalled();
+});
