@@ -48,3 +48,12 @@ it('finds the ticket, updates and saves the ticket', async () => {
     expect(ticket!.title).toEqual(data.title);
     expect(ticket!.price).toEqual(data.price);
 });
+
+it('acks the message', async () => {
+    const { listener, data, msg } = await setup();
+
+    // Call onMessage with data and msg
+    await listener.onMessage(data, msg);
+
+    expect(msg.ack).toHaveBeenCalled();
+});
