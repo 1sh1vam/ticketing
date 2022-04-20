@@ -15,6 +15,9 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
         ticket.set({ orderId: data.id });
         await ticket.save();
+        // publishing the TicketUpdated event after locking or releasing ticket
+        // inside the OrderCreatedListener to avoid the consistency issue between
+        // tickets and orders service
         await new TicketUpdatedPublisher(this.client).publish({
             id: ticket.id,
             title: ticket.title,
