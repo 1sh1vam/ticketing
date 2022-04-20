@@ -49,6 +49,21 @@ it('sets the orderId on the ticket', async () => {
     expect(updatedTicket!.orderId).toEqual(data.id);
 });
 
+it('does not ack msg if ticket not found',async () => {
+    const { listener, data, msg } = await setup();
+
+    const ticketId = new mongoose.Types.ObjectId().toHexString();
+    data.ticket.id = ticketId;
+
+    try {
+        await listener.onMessage(data, msg);
+    } catch(e) {
+
+    }
+
+    expect(msg.ack).not.toHaveBeenCalled();
+});
+
 it('acks the message', async () => {
     const { listener, data, msg } = await setup();
 
