@@ -17,6 +17,7 @@ it('throws not found error if trying do delete which does not exists', async () 
 
 it('throws not authorized error if trying to delete others order', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'MI vs KXIP',
         price: 245,
     });
@@ -39,6 +40,7 @@ it('throws not authorized error if trying to delete others order', async () => {
 
 it('deletes the order', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'MI vs KXIP',
         price: 245,
     });
@@ -71,6 +73,7 @@ it('deletes the order', async () => {
 
 it('publishes order cancelled event', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'KKR vs DC',
         price: 234
     });
