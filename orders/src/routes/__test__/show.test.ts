@@ -38,6 +38,7 @@ it('throws unauthorized error if accessing order of other users', async () => {
 
 it('throws unauthorized error if accessing order of other users', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'KXIP vs MI',
         price: 3498,
     });
