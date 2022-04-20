@@ -11,6 +11,7 @@ it('throws an 401 (bad request error) when trying to get the orders', async () =
 
 const createTicket = async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Concert',
         price: 200,
     });
