@@ -38,6 +38,7 @@ it('returns not found 404 error when ticket trying to order is not present', asy
 
 it('returns bad request 400 when ticket is already reserved', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'DC vs KKR',
         price: 2345
     });
@@ -63,6 +64,7 @@ it('returns bad request 400 when ticket is already reserved', async () => {
 
 it('successfully reserves a ticket', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'KKR vs DC',
         price: 234
     });
@@ -79,6 +81,7 @@ it('successfully reserves a ticket', async () => {
 
 it('publishes the order created event', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'MI vs DC',
         price: 3450
     });
