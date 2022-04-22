@@ -33,3 +33,14 @@ const setup = async () => {
 
     return { listener, ticket, orderId, data, msg };
 };
+
+
+it('updates the ticket', async () => {
+    const { listener, data, msg, ticket } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    const updatedTicket = await Ticket.findById(ticket.id);
+
+    expect(updatedTicket!.orderId).not.toBeDefined();
+});
