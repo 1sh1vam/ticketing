@@ -2,7 +2,7 @@ import { Listener, OrderCreatedEvent, OrderStatus, Subjects } from "@simtix/tick
 import { Message } from "node-nats-streaming";
 import { Ticket } from "../../models/ticket";
 import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
-import { queueGroupName } from "./query-group-name";
+import { queueGroupName } from "./queue-group-name";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     readonly subject = Subjects.OrderCreated;
