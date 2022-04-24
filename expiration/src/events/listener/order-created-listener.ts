@@ -11,6 +11,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
         expirationQueue.add({
             orderId: data.id,
+        }, {
+            delay: 10000,
         });
 
         msg.ack();
