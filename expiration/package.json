@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@simtix/ticketing-common": "^1.0.29",
     "@types/bull": "^3.15.8",
-    "@simtix/ticketing-common": "^1.0.28",
     "bull": "^4.8.2",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.1.8",
