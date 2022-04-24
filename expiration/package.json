@@ -11,10 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "@simtix/ticketing-common": "^1.0.28",
+    "bull": "^4.8.2",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
+    "@types/bull": "^3.15.8",
     "@types/node": "^17.0.25",
     "jest": "^27.5.1"
   }
