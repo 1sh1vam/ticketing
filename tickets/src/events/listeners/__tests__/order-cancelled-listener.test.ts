@@ -44,3 +44,15 @@ it('updates the ticket', async () => {
 
     expect(updatedTicket!.orderId).not.toBeDefined();
 });
+
+it('publishes the ticket updated event', async () => {
+    const { data, ticket, listener, msg } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+    const updatedTicketData = JSON.parse((natsWrapper.client.publish as jest.Mock).mock.calls[0][1]);
+
+    expect(updatedTicketData.orderId).toBeUndefined();
+});
