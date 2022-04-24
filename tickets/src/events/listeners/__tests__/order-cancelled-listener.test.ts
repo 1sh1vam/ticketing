@@ -56,3 +56,11 @@ it('publishes the ticket updated event', async () => {
 
     expect(updatedTicketData.orderId).toBeUndefined();
 });
+
+it('acks the msg',async () => {
+    const { listener, data, msg } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    expect(msg.ack).toHaveBeenCalled();
+});
