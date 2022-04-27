@@ -40,3 +40,11 @@ it('replicates the order info', async () => {
     expect(order!.price).toEqual(data.ticket.price);
     expect(order!.status).toEqual(data.status);
 });
+
+it('acks the msg', async () => {
+    const { listener, data, msg } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    expect(msg.ack).toHaveBeenCalled();
+});
