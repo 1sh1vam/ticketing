@@ -61,7 +61,7 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 orderSchema.statics.findByEvent = async (event: { id: string; version: number }) => {
     return Order.findOne({
         _id: event.id,
-        version: event.version,
+        version: event.version - 1,
     });
 }
 
