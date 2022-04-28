@@ -1,1 +1,1 @@
-export const queryGroupName = 'payments:service';
+export const queryGroupName = 'payments-service';
