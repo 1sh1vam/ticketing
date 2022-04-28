@@ -18,19 +18,19 @@ spec:
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
-                fieldRed:
+                fieldRef:
                   fieldPath: metadata.name
             - name: NATS_CLUSTER_ID
               value: ticketing
             - name: NATS_URL
-              value: 'https://nats-srv:4222'
+              value: 'http://nats-srv:4222'
             - name: MONGO_URI
               value: 'mongodb://payments-mongo-srv:27017/payments'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  value: JWT_KEY
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
