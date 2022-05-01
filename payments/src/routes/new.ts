@@ -2,6 +2,7 @@ import { BadRequestError, NotAuthorizedError, NotFoundError, OrderStatus, requir
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { Order } from '../models/order';
+import { stripe } from '../stripe';
 
 const router = express.Router();
 
@@ -26,6 +27,12 @@ router.post(
     if (order.status === OrderStatus.Cancelled) {
         throw new BadRequestError('Order is cancelled');
     }
+
+    await stripe.charges.create({
+        currency: 'usd',
+        amount: order.price * 100,
+        source: token,
+    });
 
     res.send({ success: true });
   }
