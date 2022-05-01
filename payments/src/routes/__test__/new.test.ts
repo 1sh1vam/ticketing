@@ -34,5 +34,3 @@ it('throws a 401 if user is not the one who created order', async () => {
         })
         .expect(401);
 });
-
-it()
