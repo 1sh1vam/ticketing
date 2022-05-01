@@ -8,6 +8,9 @@ const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY is required');
     }
+    if (!process.env.STRIPE_KEY) {
+        throw new Error('STRIPE_KEY is required');
+    }
     if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI is required');
     }
