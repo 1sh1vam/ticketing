@@ -33,7 +33,7 @@ router.post(
         amount: order.price * 100,
     });
 
-    res.send({ success: true });
+    res.status(201).send({ success: true });
   }
 );
 
