@@ -5,8 +5,6 @@ import { app } from '../../app';
 import { Order } from '../../models/order';
 import { stripe } from '../../stripe';
 
-jest.mock('../../stripe.ts');
-
 it('throws 404 if orderId does not exists', async () => {
     await request(app)
         .post('/api/payments')
@@ -62,11 +60,12 @@ it('throws 400 if order is cancelled', async () => {
 
 it('returns a 201 with valid inputs', async () => {
     const userId = new mongoose.Types.ObjectId().toHexString();
+    const price = Math.floor(Math.random() * 100000);
 
     const order = Order.build({
         id: new mongoose.Types.ObjectId().toHexString(),
         version: 0,
-        price: 23,
+        price,
         userId,
         status: OrderStatus.Created,
     });
@@ -76,15 +75,19 @@ it('returns a 201 with valid inputs', async () => {
         .post('/api/payments')
         .set('Cookie', global.signin(userId))
         .send({
-            token: 'dfdgd',
+            token: 'tok_visa',
             orderId: order.id
         })
         .expect(201);
 
-    const stripeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+    // const stripeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
 
-    console.log(stripeOptions);
+    // expect(stripeOptions.currency).toEqual('usd');
+    // expect(stripeOptions.amount).toEqual(order.price * 100);
 
-    expect(stripeOptions.currency).toEqual('usd');
-    expect(stripeOptions.amount).toEqual(order.price * 100);
+    const stripeCharges = await stripe.charges.list({ limit: 50 });
+    const stripeCharge = stripeCharges.data.find((charge) => charge.amount === price * 100);
+
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge!.amount).toEqual(price * 100);
 });
