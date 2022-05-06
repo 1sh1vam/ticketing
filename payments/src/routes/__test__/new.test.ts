@@ -81,7 +81,7 @@ it('returns a 201 with valid inputs', async () => {
         })
         .expect(201);
 
-    const stripeOptions = (stripe.paymentIntents.create as jest.Mock).mock.calls[0][0];
+    const stripeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
 
     console.log(stripeOptions);
 

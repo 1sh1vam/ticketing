@@ -1,5 +1,5 @@
 export const stripe = {
-    paymentIntents: {
+    charges: {
         create: jest.fn().mockResolvedValue({}),
     }
 }

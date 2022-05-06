@@ -28,9 +28,10 @@ router.post(
         throw new BadRequestError('Order is cancelled');
     }
 
-    await stripe.paymentIntents.create({
+    await stripe.charges.create({
         currency: 'usd',
         amount: order.price * 100,
+        source: token,
     });
 
     res.status(201).send({ success: true });
