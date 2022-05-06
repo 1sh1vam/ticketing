@@ -44,3 +44,13 @@ const setup = async () => {
     }
 }
 
+it('makes order complete', async () => {
+    const { listener, order, data, msg } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    const updatedOrder = await Order.findById(order.id);
+
+    expect(updatedOrder!.status).toEqual(OrderStatus.Complete);
+});
+
