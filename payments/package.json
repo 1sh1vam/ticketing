@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@simtix/ticketing-common": "^1.0.30",
+    "@simtix/ticketing-common": "^1.0.32",
     "cookie-session": "^2.0.0",
     "express": "^4.18.0",
     "express-async-errors": "^3.1.1",
