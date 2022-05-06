@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
 import { Order } from '../../models/order';
+import { Payment } from '../../models/payment';
 import { stripe } from '../../stripe';
 
 it('throws 404 if orderId does not exists', async () => {
@@ -90,4 +91,12 @@ it('returns a 201 with valid inputs', async () => {
 
     expect(stripeCharge).toBeDefined();
     expect(stripeCharge!.amount).toEqual(price * 100);
+
+    const payment = await Payment.findOne({
+        orderId: order.id,
+        stripeId: stripeCharge!.id,
+    });
+
+    expect(payment).toBeDefined();
+    expect(payment!.stripeId).toEqual(stripeCharge!.id);
 });
