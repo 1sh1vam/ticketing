@@ -54,3 +54,10 @@ it('makes order complete', async () => {
     expect(updatedOrder!.status).toEqual(OrderStatus.Complete);
 });
 
+it('acks the msg', async () => {
+    const { listener, order, data, msg } = await setup();
+
+    await listener.onMessage(data, msg);
+
+    expect(msg.ack).toHaveBeenCalled();
+});
