@@ -30,8 +30,8 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-    await mongod.stop()
     await mongoose.connection.close();
+    await mongod.stop()
 });
 
 global.signin = (userId?: string) => {
