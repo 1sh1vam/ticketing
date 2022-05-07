@@ -1,6 +1,7 @@
 import TicketCard from "../components/ticket-card";
 
 const LandingPage = ({ currentUser, tickets }) => {
+    console.count('inside the ticket');
     const ticketList = tickets.map((ticket) => (
         <TicketCard key={ticket.id} {...ticket} />
     ))
