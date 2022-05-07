@@ -37,6 +37,9 @@ const NewTicket = () => {
                         onChange={({ target }) => setTitle(target.value)}
                         className="w-full border mt-1 rounded-md px-3 h-10 border-gray-300 outline-none focus:outline-none focus:border-blue-300"
                     />
+                    {errors?.title && (
+                        <p className="text-xs text-red-700">{errors.title}</p>
+                    )}
                 </div>
                 <div className="w-full">
                     <p className="text-left">Price</p>
@@ -48,7 +51,15 @@ const NewTicket = () => {
                         onBlur={onBlur}
                         className="w-full border mt-1 rounded-md px-3 h-10 border-gray-300 appearance-none outline-none focus:outline-none focus:border-blue-300"
                     />
+                    {errors?.price && (
+                        <p className="text-xs text-red-700">{errors.price}</p>
+                    )}
                 </div>
+                {errors?.generic && (
+                    <ul className="bg-red-400 mt-2 list-disc text-white rounded-md pl-8 pr-5 py-3">
+                        {errors.generic}
+                    </ul>
+                )}
                 <button
                     className="w-full py-2 mt-10 rounded-lg flex justify-center items-center text-white bg-indigo-600 text-center"
                     onClick={handleSubmit}
