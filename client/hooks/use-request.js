@@ -13,6 +13,7 @@ export default ({ url, method, body, onSuccess }) => {
       const response = await axios[method](url, body);
 
       if (onSuccess) onSuccess(response);
+      setLoading(false);
 
       return response;
     } catch (err) {
