@@ -6,11 +6,11 @@ export default ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const sendRequest = async () => {
+  const sendRequest = async (props = {}) => {
     setErrors(null);
     setLoading(true);
     try {
-      const response = await axios[method](url, body);
+      const response = await axios[method](url, { ...body, ...props });
 
       if (onSuccess) onSuccess(response.data);
       setLoading(false);
