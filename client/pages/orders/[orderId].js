@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import StripeCheckOut from 'react-stripe-checkout';
+import { STRIPE_KEY } from '../../constants/stripe-key';
 
 const OrderShow = ({ order }) => {
-    const [timeLeft, setTimeLeft] = useState('');
+    const [timeLeft, setTimeLeft] = useState(0);
 
     useEffect(() => {
         const findTimeLeft = () => {
@@ -16,12 +18,16 @@ const OrderShow = ({ order }) => {
         }
     }, []);
 
-    if (timeLeft <= 0) {
+    if (timeLeft < 0) {
         return <p>Order expired....</p>
     }
     return (
-        <div>
+        <div className="flex flex-col gap-5">
             <p>Time left: {timeLeft}</p>
+            <StripeCheckOut
+                token={(token) => console.log('token', token)}
+                stripeKey={STRIPE_KEY}
+            />
         </div>
     )
 }
