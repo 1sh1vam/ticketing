@@ -9,7 +9,7 @@ const AppComponent =  ({ Component, pageProps, currentUser }) => {
     return (
         <div>
             {!NON_HEADER_PAGES.includes(router.pathname) && <Header currentUser={currentUser} />}
-            <Component {...pageProps} />
+            <Component {...pageProps} currentUser={currentUser} />
         </div>
     )
 }
