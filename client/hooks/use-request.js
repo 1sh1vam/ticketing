@@ -12,7 +12,7 @@ export default ({ url, method, body, onSuccess }) => {
     try {
       const response = await axios[method](url, body);
 
-      if (onSuccess) onSuccess(response);
+      if (onSuccess) onSuccess(response.data);
       setLoading(false);
 
       return response;
