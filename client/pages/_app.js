@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import '../styles/globals.css';
-import buildClient from './api/build-client';
-import Header from './components/header';
-import { NON_HEADER_PAGES } from './constants/page-config';
+import buildClient from '../api/build-client';
+import Header from '../components/header';
+import { NON_HEADER_PAGES } from '../constants/page-config';
 
 const AppComponent =  ({ Component, pageProps, currentUser }) => {
     const router = useRouter()
