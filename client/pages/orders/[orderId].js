@@ -8,7 +8,7 @@ const OrderShow = ({ order }) => {
             const msLeft = new Date(order.expiresAt) - new Date();
             setTimeLeft(Math.round(msLeft / 1000));
         }
-
+        findTimeLeft();
         const timerId = setInterval(findTimeLeft, 1000);
 
         return () => {
@@ -21,7 +21,7 @@ const OrderShow = ({ order }) => {
     }
     return (
         <div>
-            <p>Time left: ${timeLeft}</p>
+            <p>Time left: {timeLeft}</p>
         </div>
     )
 }
@@ -33,3 +33,5 @@ OrderShow.getInitialProps = async (context, client) => {
 
     return { order }
 }
+
+export default OrderShow;
