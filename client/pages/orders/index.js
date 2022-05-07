@@ -1,8 +1,6 @@
 import OrderCard from "../../components/order-card";
 
 const OrderList = ({ orders = [] }) => {
-    console.count('render order liser');
-    console.log('orders', orders);
     const orderList = orders.map((order) => (
         <OrderCard key={order.id} {...order} />
     ))
