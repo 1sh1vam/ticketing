@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import useRequest from "../../hooks/use-request";
 
@@ -5,11 +6,13 @@ const NewTicket = () => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
 
+    const router = useRouter();
+
     const { errors, loading, sendRequest } = useRequest({
         url: '/api/tickets',
         method: 'post',
         body: { title, price },
-        onSuccess: () => console.log('sent post ticket req'),
+        onSuccess: () => router.push('/'),
     });
 
     const handleSubmit = (e) => {
@@ -22,7 +25,6 @@ const NewTicket = () => {
         setPrice(!isNaN(value) ? value : '');
     }
     const onBlur = () => {
-        console.log('blur', price, price.toFixed(2));
         setPrice((prev) => prev.toFixed(2));
     }
     return (
